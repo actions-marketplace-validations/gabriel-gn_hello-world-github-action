@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Hello world action step
         id: hello
-        uses: gabriel-gn/hello-world-github-action@v1.0
+        uses: gabriel-gn/hello-world-github-action@v1.0.0
         with:
           who-to-greet: 'Mona the Octocat'
       # Use the output from the `hello` step
