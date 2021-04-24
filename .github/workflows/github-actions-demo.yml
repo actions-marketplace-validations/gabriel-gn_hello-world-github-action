@@ -20,6 +20,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: gabriel-gn/hello-world-github-action@v0.0.2
+      - uses: gabriel-gn/hello-world-github-action@v0.0.3
         with:
           milliseconds: 1000
