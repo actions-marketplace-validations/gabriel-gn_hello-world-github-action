@@ -1,0 +1,24 @@
+{
+  "name": "hello-world-github-action",
+  "version": "1.0.0",
+  "description": "TestGithub Action",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabriel-gn/hello-world-github-action.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gabriel-gn/hello-world-github-action/issues"
+  },
+  "homepage": "https://github.com/gabriel-gn/hello-world-github-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.7",
+    "@actions/github": "^4.0.0"
+  }
+}
