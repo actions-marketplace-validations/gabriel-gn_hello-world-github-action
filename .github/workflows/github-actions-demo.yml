@@ -1,19 +1,25 @@
-on: [push]
+name: "units-test"
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - 'releases/*'
 
 jobs:
-  hello_world_job:
+  # unit tests
+  units:
     runs-on: ubuntu-latest
-    name: A job to say hello
     steps:
-      - name: Install dependencies
-        id: npmi
-        run: npm install
-      - name: Hello world action step
-        id: hello
-        needs: steps.npmi
-        uses: gabriel-gn/hello-world-github-action@v1.0.0
+      - uses: actions/checkout@v2
+      - run: npm ci
+      - run: npm test
+
+  # test action works running from the graph
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: gabriel-gn/hello-world-github-action@v1.0.0
         with:
-          who-to-greet: 'Mona the Octocat'
-      # Use the output from the `hello` step
-      - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.time }}
+          milliseconds: 1000
