@@ -10,6 +10,7 @@ jobs:
         run: npm install
       - name: Hello world action step
         id: hello
+        needs: steps.npmi
         uses: gabriel-gn/hello-world-github-action@v1.0.0
         with:
           who-to-greet: 'Mona the Octocat'
