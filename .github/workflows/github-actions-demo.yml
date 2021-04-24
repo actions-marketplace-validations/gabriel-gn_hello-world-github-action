@@ -5,6 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     name: A job to say hello
     steps:
+      - name: Install dependencies
+        id: npmi
+        run: npm install
       - name: Hello world action step
         id: hello
         uses: gabriel-gn/hello-world-github-action@v1.0.0
