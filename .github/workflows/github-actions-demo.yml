@@ -14,9 +14,11 @@ jobs:
       content: ${{ steps.check.outputs.changed }}
     steps:
       - uses: actions/checkout@v2
+        id: checkout
         with:
           path: "hello-world-github-action"
       - name: Check package.json
+        needs: checkout
         id: check
         uses: ./
         with:
