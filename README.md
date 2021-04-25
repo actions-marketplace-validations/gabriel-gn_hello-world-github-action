@@ -1,8 +1,14 @@
 # Create a JavaScript Action
 
 <p align="center">
-  <a href="https://github.com/actions/javascript-action/actions"><img alt="javscript-action status" src="https://github.com/actions/javascript-action/workflows/units-test/badge.svg"></a>
+  <a href="https://github.com/gabriel-gn/hello-world-github-action/actions"><img alt="javscript-action status" src="https://github.com/actions/javascript-action/workflows/units-test/badge.svg"></a>
 </p>
+
+setup:
+ * `npm i -g @vercel/ncc`
+ * `brew install act`
+ * init docker daemon
+ * `npm run act` 
 
 Use this template to bootstrap the creation of a JavaScript action.:rocket:
 
