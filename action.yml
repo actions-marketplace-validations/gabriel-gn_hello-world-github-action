@@ -6,8 +6,16 @@ inputs:
     required: false
     default: './package.json'
 outputs:
-  time: # output will be available to future steps
-    description: 'The message to output'
+  content:
+    description: 'Readfile content in json format'
+  packageName:
+    description: 'Name of the package in package.json'
+  version:
+    description: 'Package json value Ex: 1.0.2'
+  npmVersion:
+    description: 'Package json value Ex: 1.0.2'
+  changed:
+    description: 'If package version exists is not available on npm'
 runs:
   using: 'node12'
   main: 'dist/index.js'
