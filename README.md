@@ -1,7 +1,7 @@
 # Create a JavaScript Action
 
 <p align="center">
-  <a href="https://github.com/gabriel-gn/hello-world-github-action/actions"><img alt="javscript-action status" src="https://github.com/actions/javascript-action/workflows/github-actions-demo/badge.svg"></a>
+  <a href="https://github.com/gabriel-gn/hello-world-github-action/actions"><img alt="javscript-action status" src="https://github.com/actions/javascript-action/workflows/check-version/badge.svg"></a>
 </p>
 
 setup:
