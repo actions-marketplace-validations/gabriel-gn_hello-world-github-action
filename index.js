@@ -1,25 +1,23 @@
 const core = require('@actions/core');
+const {promises: fs} = require('fs')
 
-let wait = function (milliseconds) {
-    return new Promise((resolve) => {
-        if (typeof milliseconds !== 'number') {
-            throw new Error('milliseconds not a number');
-        }
-        setTimeout(() => resolve("done!"), milliseconds)
-    });
-};
+const readPackageJson = async () => {
+    const filepath = core.getInput('filepath')
+    core.info(`Reading file ${filepath}`);
+    const content = await fs.readFile(filepath, 'utf8')
+    core.info(content);
+    core.setOutput('content', content)
+}
 
 // most @actions toolkit packages have async methods
 async function run() {
     try {
-        const ms = core.getInput('milliseconds');
-        core.info(`Waiting ${ms} milliseconds ...`);
-
-        core.debug((new Date()).toTimeString()); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-        await wait(parseInt(ms));
-        core.info((new Date()).toTimeString());
-
-        core.setOutput('time', new Date().toTimeString());
+        const filepath = core.getInput('filepath')
+        core.info(`Reading file ${filepath}`);
+        const content = await fs.readFile(filepath, 'utf8')
+        core.info(content);
+        core.setOutput('content', content)
+        // core.setOutput('time', new Date().toTimeString());
     } catch (error) {
         core.setFailed(error.message);
     }
