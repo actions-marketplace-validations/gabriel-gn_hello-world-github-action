@@ -1,4 +1,4 @@
-name: "units-test"
+name: "local-test"
 on:
   pull_request:
   push:
@@ -14,11 +14,9 @@ jobs:
       content: ${{ steps.check.outputs.changed }}
     steps:
       - uses: actions/checkout@v2
-        id: checkout
         with:
           path: "hello-world-github-action"
       - name: Check package.json
-        needs: checkout
         id: check
         uses: ./
         with:
