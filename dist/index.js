@@ -1,7 +1,7 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 350:
+/***/ 165:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -15,7 +15,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const os = __importStar(__nccwpck_require__(87));
-const utils_1 = __nccwpck_require__(369);
+const utils_1 = __nccwpck_require__(798);
 /**
  * Commands
  *
@@ -87,7 +87,7 @@ function escapeProperty(s) {
 
 /***/ }),
 
-/***/ 24:
+/***/ 864:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -109,9 +109,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const command_1 = __nccwpck_require__(350);
-const file_command_1 = __nccwpck_require__(466);
-const utils_1 = __nccwpck_require__(369);
+const command_1 = __nccwpck_require__(165);
+const file_command_1 = __nccwpck_require__(526);
+const utils_1 = __nccwpck_require__(798);
 const os = __importStar(__nccwpck_require__(87));
 const path = __importStar(__nccwpck_require__(622));
 /**
@@ -333,7 +333,7 @@ exports.getState = getState;
 
 /***/ }),
 
-/***/ 466:
+/***/ 526:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -351,7 +351,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const fs = __importStar(__nccwpck_require__(747));
 const os = __importStar(__nccwpck_require__(87));
-const utils_1 = __nccwpck_require__(369);
+const utils_1 = __nccwpck_require__(798);
 function issueCommand(command, message) {
     const filePath = process.env[`GITHUB_${command}`];
     if (!filePath) {
@@ -369,7 +369,7 @@ exports.issueCommand = issueCommand;
 
 /***/ }),
 
-/***/ 369:
+/***/ 798:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -392,6 +392,397 @@ function toCommandValue(input) {
 }
 exports.toCommandValue = toCommandValue;
 //# sourceMappingURL=utils.js.map
+
+/***/ }),
+
+/***/ 641:
+/***/ ((module) => {
+
+"use strict";
+
+/**
+ * A response from a web request
+ */
+var Response = /** @class */ (function () {
+    function Response(statusCode, headers, body, url) {
+        if (typeof statusCode !== 'number') {
+            throw new TypeError('statusCode must be a number but was ' + typeof statusCode);
+        }
+        if (headers === null) {
+            throw new TypeError('headers cannot be null');
+        }
+        if (typeof headers !== 'object') {
+            throw new TypeError('headers must be an object but was ' + typeof headers);
+        }
+        this.statusCode = statusCode;
+        var headersToLowerCase = {};
+        for (var key in headers) {
+            headersToLowerCase[key.toLowerCase()] = headers[key];
+        }
+        this.headers = headersToLowerCase;
+        this.body = body;
+        this.url = url;
+    }
+    Response.prototype.isError = function () {
+        return this.statusCode === 0 || this.statusCode >= 400;
+    };
+    Response.prototype.getBody = function (encoding) {
+        if (this.statusCode === 0) {
+            var err = new Error('This request to ' +
+                this.url +
+                ' resulted in a status code of 0. This usually indicates some kind of network error in a browser (e.g. CORS not being set up or the DNS failing to resolve):\n' +
+                this.body.toString());
+            err.statusCode = this.statusCode;
+            err.headers = this.headers;
+            err.body = this.body;
+            err.url = this.url;
+            throw err;
+        }
+        if (this.statusCode >= 300) {
+            var err = new Error('Server responded to ' +
+                this.url +
+                ' with status code ' +
+                this.statusCode +
+                ':\n' +
+                this.body.toString());
+            err.statusCode = this.statusCode;
+            err.headers = this.headers;
+            err.body = this.body;
+            err.url = this.url;
+            throw err;
+        }
+        if (!encoding || typeof this.body === 'string') {
+            return this.body;
+        }
+        return this.body.toString(encoding);
+    };
+    return Response;
+}());
+module.exports = Response;
+
+
+/***/ }),
+
+/***/ 717:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+exports.__esModule = true;
+var FormData = /** @class */ (function () {
+    function FormData() {
+        this._entries = [];
+    }
+    FormData.prototype.append = function (key, value, fileName) {
+        this._entries.push({ key: key, value: value, fileName: fileName });
+    };
+    return FormData;
+}());
+exports.FormData = FormData;
+function getFormDataEntries(fd) {
+    return fd._entries;
+}
+exports.getFormDataEntries = getFormDataEntries;
+
+
+/***/ }),
+
+/***/ 467:
+/***/ (function(module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
+            t[p[i]] = s[p[i]];
+    return t;
+};
+exports.__esModule = true;
+var GenericResponse = __nccwpck_require__(641);
+var FormData_1 = __nccwpck_require__(717);
+exports.FormData = FormData_1.FormData;
+var init = __nccwpck_require__(239);
+var remote = init(__nccwpck_require__.ab + "worker.js");
+function request(method, url, options) {
+    var _a = options || { form: undefined }, form = _a.form, o = __rest(_a, ["form"]);
+    var opts = o;
+    if (form) {
+        opts.form = FormData_1.getFormDataEntries(form);
+    }
+    var req = {
+        m: method,
+        u: url && typeof url === 'object' ? url.href : url,
+        o: opts
+    };
+    var res = remote(req);
+    return new GenericResponse(res.s, res.h, res.b, res.u);
+}
+exports.default = request;
+module.exports = request;
+module.exports.default = request;
+module.exports.FormData = FormData_1.FormData;
+
+
+/***/ }),
+
+/***/ 239:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+const path = __nccwpck_require__(622);
+const spawn = __nccwpck_require__(129).spawn;
+const spawnSync = __nccwpck_require__(129).spawnSync;
+const JSON = __nccwpck_require__(636);
+
+const host = '127.0.0.1';
+function nodeNetCatSrc(port, input) {
+  return (
+    "var c=require('net').connect(" +
+    port +
+    ",'127.0.0.1',()=>{c.pipe(process.stdout);c.end(" +
+    JSON.stringify(input)
+      .replace(/\u2028/g, '\\u2028')
+      .replace(/\u2029/g, '\\u2029') +
+    ')})'
+  );
+}
+
+const FUNCTION_PRIORITY = [nativeNC, nodeNC];
+
+let started = false;
+const configuration = {port: null, fastestFunction: null};
+function start() {
+  if (!spawnSync) {
+    throw new Error(
+      'Sync-request requires node version 0.12 or later.  If you need to use it with an older version of node\n' +
+        'you can `npm install sync-request@2.2.0`, which was the last version to support older versions of node.'
+    );
+  }
+  const port = findPort();
+  const p = spawn(process.execPath, [__nccwpck_require__.ab + "worker1.js", port], {
+    stdio: 'inherit',
+    windowsHide: true,
+  });
+  p.unref();
+  process.on('exit', () => {
+    p.kill();
+  });
+  waitForAlive(port);
+  const fastestFunction = getFastestFunction(port);
+  configuration.port = port;
+  configuration.fastestFunction = fastestFunction;
+  started = true;
+}
+
+function findPort() {
+  const findPortResult = spawnSync(
+    process.execPath,
+    [__nccwpck_require__.ab + "find-port.js"],
+    {
+      windowsHide: true,
+    }
+  );
+  if (findPortResult.error) {
+    if (typeof findPortResult.error === 'string') {
+      throw new Error(findPortResult.error);
+    }
+    throw findPortResult.error;
+  }
+  if (findPortResult.status !== 0) {
+    throw new Error(
+      findPortResult.stderr.toString() ||
+        'find port exited with code ' + findPortResult.status
+    );
+  }
+  const portString = findPortResult.stdout.toString('utf8').trim();
+  if (!/^[0-9]+$/.test(portString)) {
+    throw new Error('Invalid port number string returned: ' + portString);
+  }
+  return +portString;
+}
+
+function waitForAlive(port) {
+  let response = null;
+  let err = null;
+  let timeout = Date.now() + 10000;
+  while (response !== 'pong' && Date.now() < timeout) {
+    const result = nodeNC(port, 'ping\r\n');
+    response = result.stdout && result.stdout.toString();
+    err = result.stderr && result.stderr.toString();
+  }
+  if (response !== 'pong') {
+    throw new Error(
+      'Timed out waiting for sync-rpc server to start (it should respond with "pong" when sent "ping"):\n\n' +
+        err +
+        '\n' +
+        response
+    );
+  }
+}
+
+function nativeNC(port, input) {
+  return spawnSync('nc', [host, port], {
+    input: input,
+    windowsHide: true,
+    maxBuffer: Infinity,
+  });
+}
+
+function nodeNC(port, input) {
+  const src = nodeNetCatSrc(port, input);
+  if (src.length < 1000) {
+    return spawnSync(process.execPath, ['-e', src], {
+      windowsHide: true,
+      maxBuffer: Infinity,
+    });
+  } else {
+    return spawnSync(process.execPath, [], {
+      input: src,
+      windowsHide: true,
+      maxBuffer: Infinity,
+    });
+  }
+}
+
+function test(fn, port) {
+  const result = fn(port, 'ping\r\n');
+  const response = result.stdout && result.stdout.toString();
+  return response === 'pong';
+}
+
+function getFastestFunction(port) {
+  for (let i = 0; i < FUNCTION_PRIORITY.length; i++) {
+    if (test(FUNCTION_PRIORITY[i], port)) {
+      return FUNCTION_PRIORITY[i];
+    }
+  }
+}
+
+function sendMessage(input) {
+  if (!started) start();
+  const res = configuration.fastestFunction(
+    configuration.port,
+    JSON.stringify(input) + '\r\n'
+  );
+  try {
+    return JSON.parse(res.stdout.toString('utf8'));
+  } catch (ex) {
+    if (res.error) {
+      if (typeof res.error === 'string') res.error = new Error(res.error);
+      throw res.error;
+    }
+    if (res.status !== 0) {
+      throw new Error(
+        configuration.fastestFunction.name +
+          ' failed:\n' +
+          (res.stdout && res.stdout.toString()) +
+          '\n' +
+          (res.stderr && res.stderr.toString())
+      );
+    }
+    throw new Error(
+      configuration.fastestFunction.name +
+        ' failed:\n' +
+        (res.stdout && res.stdout).toString() +
+        '\n' +
+        (res.stderr && res.stderr).toString()
+    );
+  }
+}
+function extractValue(msg) {
+  if (!msg.s) {
+    const error = new Error(msg.v.message);
+    error.code = msg.v.code;
+    throw error;
+  }
+  return msg.v;
+}
+
+function createClient(filename, args) {
+  const id = extractValue(sendMessage({t: 1, f: filename, a: args}));
+  return function(args) {
+    return extractValue(sendMessage({t: 0, i: id, a: args}));
+  };
+}
+createClient.FUNCTION_PRIORITY = FUNCTION_PRIORITY;
+createClient.configuration = configuration;
+
+module.exports = createClient;
+
+
+/***/ }),
+
+/***/ 636:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+//TODO: handle reviver/dehydrate function like normal
+//and handle indentation, like normal.
+//if anyone needs this... please send pull request.
+
+exports.stringify = function stringify(o) {
+  if (o && Buffer.isBuffer(o))
+    return JSON.stringify(':base64:' + o.toString('base64'));
+
+  if (o && o.toJSON) o = o.toJSON();
+
+  if (o && 'object' === typeof o) {
+    var s = '';
+    var array = Array.isArray(o);
+    s = array ? '[' : '{';
+    var first = true;
+
+    for (var k in o) {
+      var ignore =
+        'function' == typeof o[k] || (!array && 'undefined' === typeof o[k]);
+      if (Object.hasOwnProperty.call(o, k) && !ignore) {
+        if (!first) s += ',';
+        first = false;
+        if (array) {
+          s += stringify(o[k]);
+        } else if (o[k] !== void 0) {
+          s += stringify(k) + ':' + stringify(o[k]);
+        }
+      }
+    }
+
+    s += array ? ']' : '}';
+
+    return s;
+  } else if ('string' === typeof o) {
+    return JSON.stringify(/^:/.test(o) ? ':' + o : o);
+  } else if ('undefined' === typeof o) {
+    return 'null';
+  } else return JSON.stringify(o);
+};
+
+exports.parse = function(s) {
+  return JSON.parse(s, function(key, value) {
+    if ('string' === typeof value) {
+      if (/^:base64:/.test(value))
+        return new Buffer(value.substring(8), 'base64');
+      else return /^:/.test(value) ? value.substring(1) : value;
+    }
+    return value;
+  });
+};
+
+
+/***/ }),
+
+/***/ 129:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("child_process");;
 
 /***/ }),
 
@@ -458,8 +849,9 @@ module.exports = require("path");;
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
-const core = __nccwpck_require__(24);
-const {promises: fs} = __nccwpck_require__(747)
+const core = __nccwpck_require__(864);
+const {promises: fs} = __nccwpck_require__(747);
+const request = __nccwpck_require__(467);
 
 // most @actions toolkit packages have async methods
 async function run() {
@@ -468,15 +860,19 @@ async function run() {
         core.info(`Reading file ${filepath}`);
         let content = await fs.readFile(filepath, 'utf8')
         content = JSON.parse(content);
-        let npmVersion = content.version;
-        core.setOutput('content', content)
-        core.setOutput('packageName', content.name)
-        core.setOutput('version', content.version)
-        core.setOutput('npmVersion', content.version)
-        core.setOutput('changed', content.version != npmVersion)
-        core.info(`npm version: ${content.version}`);
+        let packageFileVersion = content.version;
+        const packageName = core.getInput('packageName') || content.name;
+        const npmPackageMetadata = JSON.parse(request('GET', `https://registry.npmjs.org/${packageName}`).body);
+        const npmVersions = Object.keys(npmPackageMetadata['versions']);
+        const changed = npmVersions.includes(content.version) === false;
+        core.setOutput('content', content);
+        core.setOutput('packageName', packageName);
+        core.setOutput('version', packageFileVersion);
+        core.setOutput('npmVersions', npmVersions);
+        core.setOutput('changed', changed);
         core.info(`file version: ${content.version}`);
-        core.info(`is package version in npm versions?: ${content.version != npmVersion}`);
+        core.info(`npm ${content.name} package versions: ${npmVersions}`);
+        core.info(`has package version changed from npm versions?: ${changed}`);
     } catch (error) {
         core.setFailed(error.message);
     }

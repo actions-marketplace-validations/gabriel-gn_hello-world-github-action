@@ -20,6 +20,7 @@
   "homepage": "https://github.com/gabriel-gn/hello-world-github-action#readme",
   "dependencies": {
     "@actions/core": "^1.2.7",
-    "@actions/github": "^4.0.0"
+    "@actions/github": "^4.0.0",
+    "sync-request": "^6.1.0"
   }
 }

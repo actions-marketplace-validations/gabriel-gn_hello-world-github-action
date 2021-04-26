@@ -21,3 +21,4 @@ jobs:
         uses: ./
         with:
           filepath: 'hello-world-github-action/package.json'
+          packageName: '@mprisma/components'

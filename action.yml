@@ -5,17 +5,20 @@ inputs:
     description: 'package.json path'
     required: false
     default: './package.json'
+  packageName:
+    description: 'name of package to look for on NPM. If not proveded, will use "name" value on package.json file'
+    required: false
 outputs:
   content:
     description: 'Readfile content in json format'
   packageName:
-    description: 'Name of the package in package.json'
+    description: 'Name of the package in package.json. Eg: @mprisma/components'
   version:
-    description: 'Package json value Ex: 1.0.2'
-  npmVersion:
-    description: 'Package json value Ex: 1.0.2'
+    description: 'Package json value. Eg: 1.0.2'
+  npmVersions:
+    description: 'All existing versions of the package on npm. Eg: ["0.0.1","0.0.3","0.0.4","0.0.5","0.0.6","0.0.7"]'
   changed:
-    description: 'If package version exists is not available on npm'
+    description: 'If package version exists is not available on npm. Eg: true | false'
 runs:
   using: 'node12'
   main: 'dist/index.js'
