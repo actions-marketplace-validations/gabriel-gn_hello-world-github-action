@@ -14,11 +14,11 @@ jobs:
       content: ${{ steps.check.outputs.changed }}
     steps:
       - uses: actions/checkout@v2
-        with:
-          path: "hello-world-github-action"
+#        with:
+#          path: "hello-world-github-action"
       - name: Check package.json
         id: check
         uses: ./
         with:
-          filepath: 'hello-world-github-action/package.json'
+#          filepath: 'hello-world-github-action/package.json'
           packageName: '@mprisma/components'

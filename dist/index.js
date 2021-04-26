@@ -856,9 +856,9 @@ const request = __nccwpck_require__(467);
 // most @actions toolkit packages have async methods
 async function run() {
     try {
-        const filepath = core.getInput('filepath')
+        const filepath = core.getInput('filepath') || './package.json';
         core.info(`Reading file ${filepath}`);
-        let content = await fs.readFile(filepath, 'utf8')
+        let content = await fs.readFile(filepath, 'utf8');
         content = JSON.parse(content);
         let packageFileVersion = content.version;
         const packageName = core.getInput('packageName') || content.name;
